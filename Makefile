@@ -1,6 +1,7 @@
 # Compiler and flags
 CC := gcc
 CFLAGS := -Wall -Wextra -Iinclude -std=c11
+DEBUG_FLAGS := -g -O0 -DDEBUG
 
 # Directories
 SRC_DIR := src
@@ -27,6 +28,11 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
+# Debug build
+debug: CFLAGS += $(DEBUG_FLAGS)
+debug: clean $(TARGET)
+	@echo "Built with debug flags: $(DEBUG_FLAGS)"
+	
 # Clean build files
 clean:
 	rm -rf $(OBJ_DIR) $(BIN_DIR)
